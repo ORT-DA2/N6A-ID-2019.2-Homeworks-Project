@@ -17,4 +17,5 @@
 
 ## Contacto
 
-* Email: [santi17mendez@hotmail.com](mailto:santi17mendez@hotmail.com)
+* Email Santiago: [santi17mendez@hotmail.com](mailto:santi17mendez@hotmail.com)
+* Email Sebastian: [sebastian.uriarteg@gmail.com](mailto:sebastian.uriarteg@gmail.com)
