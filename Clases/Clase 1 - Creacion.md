@@ -10,7 +10,7 @@
 Commando | Resultado
 ------------ | -------------
 dotnet new sln| Creamos solucion (Es necesario para abrirlo en Visual Studio y para poder visualizar los errores en VS Code)
-dotnet new webapi -n "Nombre del Proyecto"| Crear un nuevo Proyecto del template WebApi
+dotnet new webapi --no-https -n "Nombre del Proyecto"| Crear un nuevo Proyecto del template WebApi
 dotnet new mstest -n "Nombre del Proyecto"| Crear un nuevo Proyecto del template Prueba Unitaria
 dotnet new console -n "Nombre del Proyecto"| Crear un nuevo Proyecto del template Console
 dotnet sln add | Asociamos el proyecto creado al .sln
@@ -91,7 +91,7 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ## Creamos el proyecto webapi y lo agregamos al sln
 
 ```PowerShell
-dotnet new webapi -au none -n Homeworks.WebApi
+dotnet new webapi --no-https -n Homeworks.WebApi
 dotnet sln add Homeworks.WebApi
 ```
 
