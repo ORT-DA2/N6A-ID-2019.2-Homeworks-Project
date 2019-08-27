@@ -10,4 +10,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Homeworks.BusinessLogic\Homeworks.BusinessLogic.csproj" />
+    <ProjectReference Include="..\Homeworks.BusinessLogic.Interface\Homeworks.BusinessLogic.Interface.csproj" />
+    <ProjectReference Include="..\Homeworks.DataAccess\Homeworks.DataAccess.csproj" />
+    <ProjectReference Include="..\Homeworks.DataAccess.Interface\Homeworks.DataAccess.Interface.csproj" />
+    <ProjectReference Include="..\Homeworks.Domain\Homeworks.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
