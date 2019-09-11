@@ -6,7 +6,7 @@ namespace Homeworks.BusinessLogic.Tests
     public class HomeworkLogicTest
     {
         [TestMethod]
-        public void TestHomeorkCreateOK()
+        public void TestHomeworkCreateOK()
         {
             
         }
