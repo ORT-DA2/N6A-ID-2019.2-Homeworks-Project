@@ -1,0 +1,601 @@
+{
+	"info": {
+		"_postman_id": "dac043d6-cbca-4701-b60c-7ba536eb4c91",
+		"name": "Homeworks.Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TEST GET ALL HOMEWORKS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48fc716a-4fa3-48fd-a7e8-13def3e0c460",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Homeworks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Homeworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST NEW HOMEWORK",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5e725e18-657e-42cf-a503-d56bacdb73a9",
+						"exec": [
+							"pm.environment.set(\"timeStamp\", new Date());"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb9e2910-c04e-4bc4-9600-1040e9278087",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"    if (pm.response.code == 201) {",
+							"        var jsonData = pm.response.json()",
+							"        pm.environment.set(\"homeworkId\", jsonData.id)",
+							"    } else {",
+							"        pm.environment.set(\"homeworkId\", null)",
+							"    }",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Description\": \"Un-Post\",\n  \"DueDate\": \"{{timeStamp}}\",\n  \"Score\": 10\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/Homeworks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Homeworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST GET HOMEWORK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24dca096-b66e-439f-a1dc-0c90fde4b31d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"They're the same homework\", function () {",
+							"    var jsonData = pm.response.json()",
+							"    pm.expect(jsonData.Id).to.eql(pm.environment.get(\"homeworkId\"))",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Homeworks/{{homeworkId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Homeworks",
+						"{{homeworkId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST UPDATE HOMEWORK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8dfa8f5-883b-4e2b-87eb-c96acb3d02bd",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Updated successfully\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Description\": \"Un-Post Modificado\",\n  \"DueDate\": \"{{timeStamp}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/Homeworks/{{homeworkId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Homeworks",
+						"{{homeworkId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST GET HOMEWORK AFTER UPDATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5533fc5-aace-49ab-9b18-0308ad57fa09",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Data correctly updated\", function () {",
+							"    var jsonData = pm.response.json()",
+							"    pm.expect(jsonData.Id).to.eql(pm.environment.get(\"homeworkId\"))",
+							"    pm.expect(jsonData.Description).to.eql(\"Un-Post Modificado\")",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Homeworks/{{homeworkId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Homeworks",
+						"{{homeworkId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST NEW EXERCISE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a14af0c-2428-4042-99fa-077875649f5d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Exercise created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"    if (pm.response.code == 201) {",
+							"        var jsonData = pm.response.json()",
+							"        pm.environment.set(\"exerciseId\", jsonData.id)",
+							"    } else {",
+							"        pm.environment.set(\"exerciseId\", null)",
+							"    }",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Problem\": \"1 + 1 = ?\",\n  \"Score\": 0\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/homeworks/{{homeworkId}}/Exercises",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"homeworks",
+						"{{homeworkId}}",
+						"Exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST GET NEW EXERCISE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93ffe487-ddb7-4886-adf2-6d31662b82c4",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"They're the same exercise\", function () {",
+							"    var jsonData = pm.response.json()",
+							"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"exerciseId\"))",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Exercises/{{exerciseId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Exercises",
+						"{{exerciseId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST GET EXERCISE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb61b56a-7356-40e3-8a50-e91f82a567fe",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Get exercise\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/exercises/{{exerciseId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"exercises",
+						"{{exerciseId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST DELETE HOMEWORK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67d16414-4065-469e-8774-80950b02f0b4",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Homework deleted\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/api/Homeworks/{{homeworkId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Homeworks",
+						"{{homeworkId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST GET ALL USERS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST NEW USER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\": \"juanjuan\",\n\t\"name\": \"juan\",\n\t\"password\": \"admin\",\n\t\"isAdmin\": false\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/Users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7cfe1f39-fa59-4a45-b46a-e4494b058e16",
+						"exec": [
+							"pm.test(\"Token\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    if (pm.response.code == 200) {",
+							"        pm.environment.set(\"token\", pm.response.json())",
+							"    } else {",
+							"        pm.environment.set(\"token\", null)",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\":\"admin\",\n\t\"password\":\"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/Token",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CHECK",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Token/Check",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Token",
+						"Check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PROTECTED CONTROLLER",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Protected",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Protected"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PROTECTED CONTROLLER USER",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Protected/CheckUser",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Protected",
+						"CheckUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PROTECTED CONTROLLER ADMIN",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/Protected/CheckAdmin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Protected",
+						"CheckAdmin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

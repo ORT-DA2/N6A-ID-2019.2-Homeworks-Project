@@ -22,7 +22,7 @@ namespace Homeworks.WebApi.Controllers
             return Ok(UserModel.ToModel(users.GetAll()));
         }
 
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
             var user = users.Get(id);

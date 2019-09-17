@@ -27,7 +27,7 @@ namespace Homeworks.DataAccess
 
 ## Microsoft SQL Server
 
-Primero que crearemos la clase ContextFactory. Esta tiene la responsabilidad de crear instancias del db context, tanto en memoria como en MSQLS.
+Primero que crearemos la clase ContextFactory. Esta tiene la responsabilidad de crear instancias del db context en memoria que las vamos a utilizar en estas primeras clases del curso de ejemplo y nos resultara util a la hora de realizar tests. Para crear la base de datos en MSSQL utilizaremos un pequeño atajo hasta que demos WebApi
 
 ```c#
 using Microsoft.EntityFrameworkCore;
@@ -45,20 +45,31 @@ namespace Homeworks.DataAccess
             builder.UseInMemoryDatabase(nameBd);
             return builder.Options;
         }
-
-        public static HomeworksContext GetSqlContext() { //BD EN SQL
-            var builder = new DbContextOptionsBuilder<HomeworksContext>();
-            return new HomeworksContext(GetSqlConfig(builder));
-        }
-
-        private static DbContextOptions GetSqlConfig(DbContextOptionsBuilder builder) {
-            builder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=HomeworksDB;
-                Trusted_Connection=True;MultipleActiveResultSets=True;");
-            return builder.Options;
-        }
     }
 }
 ```
+
+## Atajo para realizar una migración en MSSQL antes de dar web api
+
+Primero nos dirigiremos a nuestro proyecto WebApi y en la clase ```Startup``` buscamos el método ```ConfigureServices``` en este le agregamos la siguiente linea:
+
+```C#
+    //Cambiar el ConnectionString por el que vayan a utilizar.
+    services.AddDbContext<DbContext, HomeworksContext>(o => o.UseSqlServer(@"Server=.\SQLEXPRESS;Database=HomeworksDB;Trusted_Connection=True;MultipleActiveResultSets=True;"));
+```
+
+Quedando de la siguiente manera:
+
+```C#
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+    services.AddDbContext<DbContext, HomeworksContext>(o => o.UseSqlServer(@"Server=.\SQLEXPRESS;Database=HomeworksDB;Trusted_Connection=True;MultipleActiveResultSets=True"));
+}
+```
+
+Si no hacemos esto lo que sucede es que nos va a saltar un error a la hora de hacer o crear una migración diciendo oque no sabe como crear nuestro contexto ya que le falta en este caso el connection string, entonces nosotros a traves de la web api le indicamos como.
+Por estas clases lo vamos a dejar asi esto obviamente esta mal ya que hardcodeamos nuestro connection string, cuando se de WebApi volveremos a esta linea y la arreglaremos. :)
 
 ## Creación de la BD
 
@@ -67,14 +78,14 @@ EF Core no cuenta con migraciones automáticas. Si usamos una base de datos rela
 Antes que nada tenemos que estar seguro de tenes instalado el paquete "Microsoft.EntityFrameworkCore.Tools" en nuestro DataAccess para esto nos dirigiremos a este y
 
 ```PowerShell
- cd Homeworks.DataAcess
+ cd Homeworks.DataAccess
  dotnet add package Microsoft.EntityFrameworkCore.Tools
 ```
 
 Desde la raíz del proyecto:
 
 ```PowerShell
- cd Homeworks.DataAcess
+ cd Homeworks.DataAccess
  dotnet ef migrations add MyMigration --startup-project="..\Homeworks.WebApi\"
 ```
 
