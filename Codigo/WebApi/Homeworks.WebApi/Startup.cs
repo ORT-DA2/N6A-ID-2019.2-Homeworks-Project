@@ -43,6 +43,16 @@ namespace Homeworks.WebApi
             services.AddScoped<ILogic<User>, UserLogic>();
             services.AddScoped<IRepository<User>, UserRepository>();
 
+            services.AddCors(
+                options => { options.AddPolicy(
+                    "CorsPolicy", 
+                    builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                );
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -51,6 +61,7 @@ namespace Homeworks.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
         

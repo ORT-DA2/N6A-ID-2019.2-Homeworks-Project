@@ -1,0 +1,78 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+
+    <div class='panel-body'>
+        <!-- Aca filtramos las tareas  -->
+        <!-- Selector de filtro:  -->
+        <div class='row'>
+            <div class='col-md-2'>Filter by:</div>
+            <div class='col-md-4'>
+                <input type='text' [(ngModel)]='listFilter' />
+            </div>
+        </div>
+        <div class='row' *ngIf='listFilter'>
+            <div class='col-md-6'>
+                <h3>Filtered by: {{listFilter}} </h3>
+            </div>
+        </div>
+
+        <!-- Mensaje de error -->
+        <div class='has-error'> </div>
+
+        <!--Tabla de tareas -->
+        <div class='table-responsive'>
+            <table class='table' *ngIf='homeworks && homeworks.length'>
+                <!--Cabezal de la tabla -->
+                <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Descripcion</th>
+                      <th>Fecha</th>
+                      <th>Puntaje</th>
+                      <th>
+                        <button (click)="toogleExercises()" class='btn btn-primary'>
+                          {{showExercises ? 'Mostrar' : 'Ocultar'}} EJs
+                        </button>
+                      </th>
+                      <th>Rating</th>
+                    </tr>
+                  </thead>
+                <!--Cuerpo de la tabla-->
+                <tbody>
+                    <tr *ngFor="let aHomework of homeworks | homeworksFilter : listFilter">
+                      <td><a [routerLink]="['/homeworks', aHomework.id]"> {{aHomework.id | uppercase}} </a></td>
+                        <td>{{aHomework.description  | uppercase}}</td>
+                        <td>{{aHomework.dueDate}}</td>
+                        <td>{{aHomework.score}}</td>
+                        <td>
+                          <div *ngIf='showExercises'>
+                            <table *ngIf='aHomework.exercises && aHomework.exercises.length'>
+                              <thead>
+                                <tr>
+                                  <th>Problema</th>
+                                  <th>Puntaje</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let aExercise of aHomework.exercises">
+                                  <td>{{aExercise.problem}}</td>
+                                  <td>{{aExercise.score}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </td>
+                        <td>
+                          <app-star 
+                            [rating]='aHomework.rating'
+                            (ratingClicked)='onRatingClicked($event)'>
+                          </app-star>
+                        </td>
+                    </tr>
+                  </tbody>
+            </table>
+        </div>
+    </div>
+</div>

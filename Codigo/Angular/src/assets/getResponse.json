@@ -1,0 +1,38 @@
+[
+    {
+        "id": "1",
+        "description": "Una tarea",
+        "score": 4,
+        "dueDate": "1/10/2015",
+        "rating": 4,
+        "exercises": []
+    },
+    {
+        "id": "2",
+        "description": "otra tarea",
+        "score": 100,
+        "dueDate": "1/10/2015",
+        "rating": 5,
+        "exercises": []
+    },
+	{
+        "id": "3",
+        "description": "otra tarea 2",
+        "score": 4,
+        "dueDate": "1/10/2015",
+        "rating": 1,
+        "exercises": []
+    },
+	{
+        "id": "4",
+        "description": "Una tarea",
+        "score": 4,
+        "dueDate": "1/10/2015",
+        "rating": 2,
+        "exercises": [{
+			"id": 1,
+			"problem": "hola",
+			"score": 10
+		}]
+    }
+]

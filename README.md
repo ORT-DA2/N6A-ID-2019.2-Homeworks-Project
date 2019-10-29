@@ -18,6 +18,11 @@
 ## 2) Angular
 
 * [Clase 9 - Angular y las SPAs](/Clases/Clase%209%20-%20Angular%20y%20las%20SPAs.md)
+* [Clase 10 - Componentes, Templates, Directivas, Data Binding y Pipes](/Clases/Clase%2010%20-%20Componentes%20Templates,%20Bootstrapping,%20Directivas%20Data%20Binding%20y%20Pipes.md) / [Codigo Angular](/Codigo/Angular)
+* [Clase 10 - Custom Pipes y Service Básico](/Clases/Clase%2010%20-%20Custom%20Pipes%20y%20Service%20Basico.md)
+* [Clase 11 - Conceptos avanzados](/Clases/Clase%2011%20-%20Conceptos%20avanzados.md)
+* [Clase 11 - Http, Observables y Mas sobre Routing](/Clases/Clase%2011%20-%20Http%20y%20Observables%20y%20Mas%20sobre%20Routing.md)
+
 ## Extra
 
 * [Custom Data Binding (Extra)](/Clases/Clase%208%20-%20Custom%20Data%20Binding.md)
